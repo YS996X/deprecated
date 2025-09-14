@@ -1,27 +1,221 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Updated color scheme to retro Windows XP theme */
+  --background: #fefce8; /* Light cream background */
+  --foreground: #4b5563; /* Dark gray for text */
+  --card: #ffffff; /* White for content containers */
+  --card-foreground: #4b5563; /* Dark gray for text in cards */
+  --popover: #ffffff; /* White for popover backgrounds */
+  --popover-foreground: #4b5563; /* Dark gray for popover text */
+  --primary: #a16207; /* Yellow for primary text */
+  --primary-foreground: #ffffff; /* White for contrast */
+  --secondary: #6366f1; /* Soft blue for accents */
+  --secondary-foreground: #ffffff; /* White for contrast */
+  --muted: #fefce8; /* Light cream for muted elements */
+  --muted-foreground: #4b5563; /* Dark gray for muted text */
+  --accent: #6366f1; /* Soft blue for buttons */
+  --accent-foreground: #ffffff; /* White for button text */
+  --destructive: #be123c; /* Rose color for error messages */
+  --destructive-foreground: #ffffff; /* White for error text */
+  --border: #4b5563; /* Dark gray for borders */
+  --input: #ffffff; /* White for input fields */
+  --ring: #6366f1; /* Blue for focus rings */
+  --chart-1: #a16207; /* Yellow for chart elements */
+  --chart-2: #6366f1; /* Soft blue for chart elements */
+  --chart-3: #be123c; /* Rose for chart elements */
+  --chart-4: #4b5563; /* Dark gray for chart elements */
+  --chart-5: #fefce8; /* Light cream for chart elements */
+  --radius: 0.5rem; /* Rounded corners */
+  --sidebar: #fefce8; /* Light cream for sidebar */
+  --sidebar-foreground: #4b5563; /* Dark gray for sidebar text */
+  --sidebar-primary: #a16207; /* Yellow for primary sidebar elements */
+  --sidebar-primary-foreground: #ffffff; /* White for sidebar primary text */
+  --sidebar-accent: #6366f1; /* Soft blue for sidebar accents */
+  --sidebar-accent-foreground: #ffffff; /* White for sidebar accent text */
+  --sidebar-border: #4b5563; /* Dark gray for sidebar borders */
+  --sidebar-ring: #6366f1; /* Blue for sidebar focus rings */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.dark {
+  --background: #141414; /* Dark gray background */
+  --foreground: #ffffff; /* White for text */
+  --card: #2d2d2d; /* Darker gray for content containers */
+  --card-foreground: #ffffff; /* White for text in cards */
+  --popover: #2d2d2d; /* Darker gray for popover backgrounds */
+  --popover-foreground: #ffffff; /* White for popover text */
+  --primary: #a16207; /* Yellow for primary text */
+  --primary-foreground: #ffffff; /* White for contrast */
+  --secondary: #6366f1; /* Soft blue for accents */
+  --secondary-foreground: #ffffff; /* White for contrast */
+  --muted: #4b5563; /* Dark gray for muted elements */
+  --muted-foreground: #ffffff; /* White for muted text */
+  --accent: #6366f1; /* Soft blue for buttons */
+  --accent-foreground: #ffffff; /* White for button text */
+  --destructive: #be123c; /* Rose color for error messages */
+  --destructive-foreground: #ffffff; /* White for error text */
+  --border: #4b5563; /* Dark gray for borders */
+  --input: #2d2d2d; /* Darker gray for input fields */
+  --ring: #6366f1; /* Blue for focus rings */
+  --chart-1: #a16207; /* Yellow for chart elements */
+  --chart-2: #6366f1; /* Soft blue for chart elements */
+  --chart-3: #be123c; /* Rose for chart elements */
+  --chart-4: #4b5563; /* Dark gray for chart elements */
+  --chart-5: #2d2d2d; /* Darker gray for chart elements */
+  --sidebar: #2d2d2d; /* Darker gray for sidebar */
+  --sidebar-foreground: #ffffff; /* White for sidebar text */
+  --sidebar-primary: #a16207; /* Yellow for primary sidebar elements */
+  --sidebar-primary-foreground: #ffffff; /* White for sidebar primary text */
+  --sidebar-accent: #6366f1; /* Soft blue for sidebar accents */
+  --sidebar-accent-foreground: #ffffff; /* White for sidebar accent text */
+  --sidebar-border: #4b5563; /* Dark gray for sidebar borders */
+  --sidebar-ring: #6366f1; /* Blue for sidebar focus rings */
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* Added retro animations and effects */
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@keyframes bounce-slow {
+  0%,
+  100% {
+    transform: translateY(0);
   }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.flicker {
+  animation: flicker 2s infinite;
+}
+
+.bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+.glitch {
+  animation: glitch 0.3s ease-in-out infinite;
+}
+
+.scan-line {
+  animation: scan-line 3s linear infinite;
+}
+
+.retro-border {
+  border: 3px solid #4b5563;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #4b5563;
+}
+
+.retro-button {
+  border: 2px solid #4b5563;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #4b5563;
+  transition: all 0.1s ease;
+}
+
+.retro-button:active {
+  border-top-color: #4b5563;
+  border-left-color: #4b5563;
+  border-bottom-color: #ffffff;
+  border-right-color: #ffffff;
+  box-shadow: inset -1px -1px 0 #ffffff, inset 1px 1px 0 #4b5563;
+}
+
+.pixel-text {
+  font-family: "Courier New", monospace;
+  text-shadow: 2px 2px 0px #4b5563;
 }

@@ -1,101 +1,150 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+
+export default function FocusFlow404() {
+  const [currentTime, setCurrentTime] = useState("")
+  const [showCursor, setShowCursor] = useState(true)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date().toLocaleTimeString())
+    }, 1000)
+
+    const cursorTimer = setInterval(() => {
+      setShowCursor((prev) => !prev)
+    }, 500)
+
+    return () => {
+      clearInterval(timer)
+      clearInterval(cursorTimer)
+    }
+  }, [])
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-background to-muted relative overflow-hidden">
+      {/* Retro scan line effect */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="w-full h-0.5 bg-primary/20 scan-line"></div>
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Retro taskbar */}
+      <div className="fixed bottom-0 left-0 right-0 h-12 bg-card retro-border flex items-center justify-between px-4 z-10">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-primary retro-button flex items-center justify-center">
+            <span className="text-primary-foreground font-bold text-xs">FF</span>
+          </div>
+          <span className="text-sm font-mono">Focus Flow v1.0</span>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="text-sm font-mono">{currentTime}</div>
+      </div>
+
+      {/* Main content */}
+      <div className="flex items-center justify-center min-h-screen p-4">
+        <Card className="max-w-2xl w-full retro-border bg-card p-8 relative">
+          {/* Window title bar */}
+          <div className="absolute -top-8 left-0 right-0 h-8 bg-primary retro-border flex items-center justify-between px-2">
+            <span className="text-primary-foreground font-bold text-sm">Focus Flow - Error</span>
+            <div className="flex gap-1">
+              <div className="w-4 h-4 bg-yellow-400 retro-button"></div>
+              <div className="w-4 h-4 bg-red-500 retro-button"></div>
+            </div>
+          </div>
+
+          <div className="text-center space-y-8">
+            {/* Retro computer icon */}
+            <div className="flex justify-center">
+              <div className="bounce-slow">
+                {/* CRT Monitor with realistic proportions */}
+                <div className="w-48 h-40 bg-gray-300 rounded-lg retro-border relative">
+                  {/* Monitor bezel */}
+                  <div className="absolute inset-2 bg-gray-800 rounded border-2 border-gray-600">
+                    {/* Screen with slight curve effect */}
+                    <div className="absolute inset-1 bg-black rounded-sm overflow-hidden">
+                      {/* Screen content with scanlines */}
+                      <div className="w-full h-full bg-gradient-to-b from-green-400 to-green-600 relative">
+                        <div className="absolute inset-0 bg-black/20"></div>
+                        {/* Terminal-style content */}
+                        <div className="p-2 font-mono text-xs text-green-300">
+                          <div>C:\&gt; focus-flow.exe</div>
+                          <div className="text-red-400">ERROR: File not found</div>
+                          <div className="text-yellow-300">Status: DEPRECATED</div>
+                          <div className="flicker">_</div>
+                        </div>
+                        {/* Scanlines effect */}
+                        <div
+                          className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-transparent bg-repeat-y opacity-30"
+                          style={{ backgroundSize: "100% 4px" }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Monitor controls */}
+                  <div className="absolute right-1 top-1/2 transform -translate-y-1/2 space-y-1">
+                    <div className="w-2 h-2 bg-gray-600 rounded-full retro-button"></div>
+                    <div className="w-2 h-2 bg-gray-600 rounded-full retro-button"></div>
+                  </div>
+
+                  {/* Power LED */}
+                  <div className="absolute bottom-2 right-2 w-1 h-1 bg-green-400 rounded-full flicker"></div>
+                </div>
+
+                {/* Monitor stand */}
+                <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2">
+                  <div className="w-16 h-6 bg-gray-300 retro-border rounded-b-lg"></div>
+                  <div className="w-24 h-3 bg-gray-400 retro-border rounded-full mx-auto -mt-1"></div>
+                </div>
+
+                {/* Floating floppy disk */}
+                <div className="absolute -top-4 -right-8 bounce-slow">
+                  <div className="w-8 h-8 bg-blue-600 retro-border relative">
+                    <div className="absolute top-1 left-1 w-6 h-1 bg-white"></div>
+                    <div className="absolute bottom-1 left-1 w-4 h-3 bg-white"></div>
+                    <div className="absolute top-1 right-1 w-1 h-1 bg-blue-800"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Main message */}
+            <div className="space-y-6">
+              <h2 className="text-3xl font-bold text-primary pixel-text">Focus Flow has been deprecated {":("}</h2>
+
+              <div className="bg-muted p-6 retro-border">
+                <p className="text-lg font-mono leading-relaxed">
+                  However, we made it opensource so you can use it locally! {":)"}
+                  <span className={`inline-block ml-1 ${showCursor ? "opacity-100" : "opacity-0"}`}>█</span>
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button
+                  className="retro-button bg-secondary hover:bg-secondary/90 text-secondary-foreground font-mono px-8 py-3"
+                  onClick={() => window.open("https://github.com/YS996X/Focus-Flow", "_blank")}
+                >
+                  📁 Download Source Code
+                </Button>
+
+                <Button
+                  variant="outline"
+                  className="retro-button border-border hover:bg-muted font-mono px-8 py-3 bg-transparent"
+                  onClick={() => window.history.back()}
+                >
+                  ← Go Back
+                </Button>
+              </div>
+            </div>
+
+            {/* Retro footer */}
+            <div className="pt-8 border-t border-border">
+              <p className="text-sm font-mono text-muted-foreground flicker">Credits: Yuvraj Singh, Om Dwivedi</p>
+            </div>
+          </div>
+        </Card>
+      </div>
     </div>
-  );
+  )
 }
